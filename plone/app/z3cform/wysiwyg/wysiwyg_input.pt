@@ -15,7 +15,7 @@
                          inputvalue         view/value;
                          here_url           request/getURL;
                          member             context/portal_membership/getAuthenticatedMember;
-			 field              view/name;
+			 field              view/field;
                          tabindex           nothing">
         <div metal:use-macro="context/wysiwyg_support/macros/wysiwygEditorBox">
             The WYSIWYG code
