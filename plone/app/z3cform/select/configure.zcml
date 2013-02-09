@@ -1,0 +1,54 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:z3c="http://namespaces.zope.org/z3c"
+    i18n_domain="plone">
+
+    <class class=".select.SelectWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.ISelectWidget" />
+    </class>
+
+<!-- Single Selection -->
+    <class class="zope.schema._field.Choice">
+        <implements interface=".interfaces.IChoiceField"/>
+    </class>
+
+    <adapter
+        factory=".select.SelectFieldWidget"
+        for=".interfaces.IChoiceField
+             plone.app.z3cform.interfaces.IPloneFormLayer" />
+
+<!-- Multiple Selection -->
+    <class class="zope.schema._field.Set">
+        <implements interface=".interfaces.ISetField"/>
+    </class>
+
+    <adapter
+        factory=".select.CollectionSelectFieldWidget"
+        for=".interfaces.ISetField
+             plone.app.z3cform.interfaces.IPloneFormLayer" />
+
+<!-- widget templates -->
+    <z3c:widgetTemplate
+        mode="display"
+        widget=".interfaces.ISelectWidget"
+        layer="plone.app.z3cform.interfaces.IPloneFormLayer"
+        template="select_display.pt"
+        />
+
+    <z3c:widgetTemplate
+        mode="input"
+        widget=".interfaces.ISelectWidget"
+        layer="plone.app.z3cform.interfaces.IPloneFormLayer"
+        template="select_input.pt"
+        />
+
+    <z3c:widgetTemplate
+        mode="hidden"
+        widget=".interfaces.ISelectWidget"
+        layer="plone.app.z3cform.interfaces.IPloneFormLayer"
+        template="select_hidden.pt"
+        />
+
+</configure>

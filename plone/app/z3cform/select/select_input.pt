@@ -1,0 +1,85 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     tal:omit-tag=""
+     tal:define="items view/items;
+                 item_count python:len(items)">
+<select id="" name="" class="" tabindex="" disabled="" multiple="" size=""
+        tal:condition="python: item_count &gt; 5"
+        tal:attributes="id view/id;
+                        name string:${view/name}:list;
+                        class view/klass;
+                        style view/style;
+                        title view/title;
+                        lang view/lang;
+                        onclick view/onclick;
+                        ondblclick view/ondblclick;
+                        onmousedown view/onmousedown;
+                        onmouseup view/onmouseup;
+                        onmouseover view/onmouseover;
+                        onmousemove view/onmousemove;
+                        onmouseout view/onmouseout;
+                        onkeypress view/onkeypress;
+                        onkeydown view/onkeydown;
+                        onkeyup view/onkeyup;
+                        disabled view/disabled;
+                        tabindex view/tabindex;
+                        onfocus view/onfocus;
+                        onblur view/onblur;
+                        onchange view/onchange;
+                        multiple view/multiple;
+                        size view/size">
+<tal:block repeat="item view/items"
+  ><option id="" value="" selected="selected"
+         tal:condition="item/selected"
+         tal:attributes="id item/id;
+                         value item/value"
+         tal:content="item/content">label</option
+  ><option id="" value=""
+         tal:condition="not:item/selected"
+         tal:attributes="id item/id;
+                         value item/value"
+         tal:content="item/content">label</option
+></tal:block>
+</select>
+<div tal:condition="python: item_count &lt;= 5">
+<span class="option"
+      tal:repeat="item items">
+  <label for=""
+         tal:attributes="for item/id">
+    <input id="" name="" class="" title=""
+           tabindex="" disabled="" readonly="" accesskey="" value=""
+           checked="" type="radio"
+           tal:define="checked item/selected"
+           tal:attributes="id item/id;
+                           name view/name;
+                           class view/klass;
+                           value item/value;
+                           style view/style;
+                           title view/title;
+                           lang view/lang;
+                           onclick view/onclick;
+                           ondblclick view/ondblclick;
+                           onmousedown view/onmousedown;
+                           onmouseup view/onmouseup;
+                           onmouseover view/onmouseover;
+                           onmousemove view/onmousemove;
+                           onmouseout view/onmouseout;
+                           onkeypress view/onkeypress;
+                           onkeydown view/onkeydown;
+                           onkeyup view/onkeyup;
+                           disabled view/disabled;
+                           tabindex view/tabindex;
+                           onfocus view/onfocus;
+                           onblur view/onblur;
+                           onchange view/onchange;
+                           checked python: checked and 'checked' or None"
+    />
+    <span class="label" tal:content="item/content">Label</span>
+  </label>
+</span>
+</div>
+
+
+<input name="field-empty-marker" type="hidden" value="1"
+       tal:attributes="name string:${view/name}-empty-marker" />
+</div>

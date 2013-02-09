@@ -8,6 +8,7 @@
 
   <include package="plone.z3cform" />
   <include package=".wysiwyg" />
+  <include package=".select" />
   <include package="collective.z3cform.datetimewidget" />
 
   <!-- Configuration installation profile -->

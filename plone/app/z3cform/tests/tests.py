@@ -10,6 +10,7 @@ from Products.Five import zcml
 from Products.PloneTestCase import ptc
 from Products.PloneTestCase.layer import onsetup
 
+from plone.app.z3cform.tests.layer import IntegrationLayer
 from plone.app.z3cform.tests.layer import InlineValidationLayer
 
 
@@ -53,6 +54,12 @@ def test_suite():
         )
     inlineValidationTests.layer = InlineValidationLayer
 
+    seltest = zope.testing.doctest.DocFileSuite('select/README.txt',
+        package='plone.app.z3cform',
+        optionflags=zope.testing.doctest.NORMALIZE_WHITESPACE | zope.testing.doctest.ELLIPSIS,
+        )
+    seltest.layer = IntegrationLayer
+
     return unittest.TestSuite([
         unittest.makeSuite(IntegrationTests),
 
@@ -64,15 +71,12 @@ def test_suite():
                 setUp=zope.component.testing.setUp, tearDown=zope.component.testing.tearDown,
             ),
 
-        zope.testing.doctest.DocFileSuite('select/README.txt', package='plone.app.z3cform',
-            setUp=z3c.form.testing.setUpZPT, tearDown=z3c.form.testing.tearDown,
-            optionflags=zope.testing.doctest.NORMALIZE_WHITESPACE | zope.testing.doctest.ELLIPSIS,
-            ),
-
         zope.testing.doctest.DocTestSuite('plone.app.z3cform.wysiwyg.widget', package='plone.app.z3cform',
                 setUp=zope.component.testing.setUp, tearDown=zope.component.testing.tearDown,
             ),
 
         inlineValidationTests,
+
+        seltest,
 
         ])
