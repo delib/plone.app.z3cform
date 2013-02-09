@@ -3,13 +3,9 @@
     xmlns:z3c="http://namespaces.zope.org/z3c"
     i18n_domain="plone">
 
-    <class class=".select.SelectWidget">
-        <require
-            permission="zope.Public"
-            interface=".interfaces.ISelectWidget" />
-    </class>
 
-<!-- Single Selection -->
+<!-- Single Selection
+-->
     <class class="zope.schema._field.Choice">
         <implements interface=".interfaces.IChoiceField"/>
     </class>
@@ -19,7 +15,8 @@
         for=".interfaces.IChoiceField
              plone.app.z3cform.interfaces.IPloneFormLayer" />
 
-<!-- Multiple Selection -->
+<!-- Multiple Selection
+-->
     <class class="zope.schema._field.Set">
         <implements interface=".interfaces.ISetField"/>
     </class>

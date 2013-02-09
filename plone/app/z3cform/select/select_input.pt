@@ -41,42 +41,81 @@
          tal:content="item/content">label</option
 ></tal:block>
 </select>
-<div tal:condition="python: item_count &lt;= 5">
-<span class="option"
-      tal:repeat="item items">
-  <label for=""
-         tal:attributes="for item/id">
-    <input id="" name="" class="" title=""
-           tabindex="" disabled="" readonly="" accesskey="" value=""
-           checked="" type="radio"
-           tal:define="checked item/selected"
-           tal:attributes="id item/id;
-                           name view/name;
-                           class view/klass;
-                           value item/value;
-                           style view/style;
-                           title view/title;
-                           lang view/lang;
-                           onclick view/onclick;
-                           ondblclick view/ondblclick;
-                           onmousedown view/onmousedown;
-                           onmouseup view/onmouseup;
-                           onmouseover view/onmouseover;
-                           onmousemove view/onmousemove;
-                           onmouseout view/onmouseout;
-                           onkeypress view/onkeypress;
-                           onkeydown view/onkeydown;
-                           onkeyup view/onkeyup;
-                           disabled view/disabled;
-                           tabindex view/tabindex;
-                           onfocus view/onfocus;
-                           onblur view/onblur;
-                           onchange view/onchange;
-                           checked python: checked and 'checked' or None"
-    />
-    <span class="label" tal:content="item/content">Label</span>
-  </label>
-</span>
+<div tal:condition="python: item_count &lt;= 5" tal:omit-tag="">
+    <tal:block tal:condition="view/multiple">
+        <span class="option"
+              tal:repeat="item view/items">
+          <input type="checkbox" id="" name="" class="" alt="" title=""
+                 tabindex="" disabled="" readonly="" accesskey="" value=""
+                 tal:define="checked item/selected"
+                 tal:attributes="id item/id;
+                                 name string:${view/name}:list;
+                                 class view/klass;
+                                 value item/value;
+                                 style view/style;
+                                 title view/title;
+                                 checked python: checked and 'checked' or None;
+                                 lang view/lang;
+                                 onclick view/onclick;
+                                 ondblclick view/ondblclick;
+                                 onmousedown view/onmousedown;
+                                 onmouseup view/onmouseup;
+                                 onmouseover view/onmouseover;
+                                 onmousemove view/onmousemove;
+                                 onmouseout view/onmouseout;
+                                 onkeypress view/onkeypress;
+                                 onkeydown view/onkeydown;
+                                 onkeyup view/onkeyup;
+                                 disabled view/disabled;
+                                 tabindex view/tabindex;
+                                 onfocus view/onfocus;
+                                 onblur view/onblur;
+                                 onchange view/onchange"
+          />
+          <label for=""
+                 tal:attributes="for item/id">
+            <span class="label" tal:content="item/value">Label</span>
+          </label>
+        </span>
+    </tal:block>
+
+    <tal:block tal:condition="not:view/multiple">
+        <span class="option"
+              tal:repeat="item items">
+          <label for=""
+                 tal:attributes="for item/id">
+            <input id="" name="" class="" title=""
+                   tabindex="" disabled="" readonly="" accesskey="" value=""
+                   checked="" type="radio"
+                   tal:define="checked item/selected"
+                   tal:attributes="id item/id;
+                                   name view/name;
+                                   class view/klass;
+                                   value item/value;
+                                   style view/style;
+                                   title view/title;
+                                   lang view/lang;
+                                   onclick view/onclick;
+                                   ondblclick view/ondblclick;
+                                   onmousedown view/onmousedown;
+                                   onmouseup view/onmouseup;
+                                   onmouseover view/onmouseover;
+                                   onmousemove view/onmousemove;
+                                   onmouseout view/onmouseout;
+                                   onkeypress view/onkeypress;
+                                   onkeydown view/onkeydown;
+                                   onkeyup view/onkeyup;
+                                   disabled view/disabled;
+                                   tabindex view/tabindex;
+                                   onfocus view/onfocus;
+                                   onblur view/onblur;
+                                   onchange view/onchange;
+                                   checked python: checked and 'checked' or None"
+            />
+            <span class="label" tal:content="item/content">Label</span>
+          </label>
+        </span>
+    </tal:block>
 </div>
 
 

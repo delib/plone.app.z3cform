@@ -26,10 +26,14 @@ def SelectFieldWidget(field, request):
     """IFieldWidget factory for SelectWidget."""
     return z3c.form.widget.FieldWidget(field, SelectWidget(request))
 
+
 @zope.component.adapter(
     zope.schema.interfaces.IUnorderedCollection,
     z3c.form.interfaces.IFormLayer)
 @zope.interface.implementer(z3c.form.interfaces.IFieldWidget)
 def CollectionSelectFieldWidget(field, request):
     """IFieldWidget factory for SelectWidget."""
-    return z3c.form.widget.FieldWidget(field, SelectWidget(request))
+    widget = z3c.form.widget.FieldWidget(field, SelectWidget(request))
+    widget.size = 5
+    widget.multiple = 'multiple'
+    return widget
