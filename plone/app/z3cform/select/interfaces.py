@@ -12,6 +12,6 @@ class ISetField(zope.schema.interfaces.ISet,
     """ Special marker for set fields that use our widget """
 
 
-class ISelectWidget(z3c.form.interfaces.IWidget):
-    """Select widget with ability to used select or
-       radiobutton/checkbox widgets."""
+# class ISelectWidget(z3c.form.interfaces.IWidget):
+#     """Select widget with ability to used select or
+#        radiobutton/checkbox widgets."""

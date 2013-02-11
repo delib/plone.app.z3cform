@@ -7,12 +7,12 @@ import zope.component.hooks
 import z3c.form.interfaces
 import z3c.form.browser.select
 
-from interfaces import ISelectWidget
+# from interfaces import ISelectWidget
 
 
 class SelectWidget(z3c.form.browser.select.SelectWidget):
 
-    zope.interface.implementsOnly(ISelectWidget)
+    zope.interface.implementsOnly(z3c.form.interfaces.ISelectWidget)
 
     def update(self):
         super(SelectWidget, self).update()
