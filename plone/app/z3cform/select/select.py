@@ -1,4 +1,3 @@
-import Acquisition
 import zope.component
 import zope.interface
 import zope.schema.interfaces
@@ -7,9 +6,14 @@ import zope.component.hooks
 import z3c.form.interfaces
 import z3c.form.browser.select
 
-import plone.autoform.widgets
+try:
+    import plone.autoform.widgets
+    have_autoform = True
+except:
+    have_autoform = False
 
 from interfaces import ISelectWidget
+
 
 class SelectWidget(z3c.form.browser.select.SelectWidget):
 
@@ -50,4 +54,6 @@ def CollectionSelectFieldWidget(field, request):
     return widget
 
 
-SelectWidgetExportImportHandler = plone.autoform.widgets.WidgetExportImportHandler(ISelectWidget)
+if have_autoform:
+    SelectWidgetExportImportHandler = plone.autoform.widgets.WidgetExportImportHandler(ISelectWidget)
+
