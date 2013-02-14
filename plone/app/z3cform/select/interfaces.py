@@ -1,3 +1,4 @@
+import zope.schema
 import zope.schema.interfaces
 import z3c.form.interfaces
 
@@ -12,6 +13,21 @@ class ISetField(zope.schema.interfaces.ISet,
     """ Special marker for set fields that use our widget """
 
 
-# class ISelectWidget(z3c.form.interfaces.IWidget):
-#     """Select widget with ability to used select or
-#        radiobutton/checkbox widgets."""
+class ISelectWidget(z3c.form.interfaces.ISelectWidget):
+    """Select widget with ability to use select or
+       radiobutton/checkbox widgets."""
+
+    input_format = zope.schema.Choice(
+        title=u'Input Format',
+        values=(None, u'auto', u'select', u'individual'),
+        default=u'auto'
+    )
+
+    size = zope.schema.Int(
+        title=u'Size',
+        description=u'Rows to display in selection boxes',
+        default=5,
+    )
+
+    def widget_format(self):
+        """ return 'individual' or 'select' """

@@ -2,9 +2,10 @@
      xmlns:tal="http://xml.zope.org/namespaces/tal"
      tal:omit-tag=""
      tal:define="items view/items;
-                 item_count python:len(items)">
+                 item_count python:len(items);
+                 input_format view/widget_format | string:select">
 <select id="" name="" class="" tabindex="" disabled="" multiple="" size=""
-        tal:condition="python: item_count &gt; 5"
+        tal:condition="python: input_format == 'select'"
         tal:attributes="id view/id;
                         name string:${view/name}:list;
                         class view/klass;
@@ -41,7 +42,7 @@
          tal:content="item/content">label</option
 ></tal:block>
 </select>
-<div tal:condition="python: item_count &lt;= 5" tal:omit-tag="">
+<div tal:condition="python: input_format != 'select'" tal:omit-tag="">
     <tal:block tal:condition="view/multiple">
         <span class="option"
               tal:repeat="item view/items">

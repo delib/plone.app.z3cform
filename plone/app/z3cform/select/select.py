@@ -7,16 +7,26 @@ import zope.component.hooks
 import z3c.form.interfaces
 import z3c.form.browser.select
 
-# from interfaces import ISelectWidget
+import plone.autoform.widgets
 
+from interfaces import ISelectWidget
 
 class SelectWidget(z3c.form.browser.select.SelectWidget):
 
-    zope.interface.implementsOnly(z3c.form.interfaces.ISelectWidget)
+    zope.interface.implementsOnly(ISelectWidget)
 
     def update(self):
         super(SelectWidget, self).update()
         z3c.form.browser.widget.addFieldClass(self)
+
+    def widget_format(self):
+        input_format = getattr(self, 'input_format', 'auto')
+        if input_format == 'auto':
+            if len(self.terms) > 5:
+                return 'select'
+            else:
+                return 'individual'
+        return input_format
 
 
 @zope.component.adapter(zope.schema.interfaces.IChoice,
@@ -36,4 +46,8 @@ def CollectionSelectFieldWidget(field, request):
     widget = z3c.form.widget.FieldWidget(field, SelectWidget(request))
     widget.size = 5
     widget.multiple = 'multiple'
+    widget.input_format = 'auto'
     return widget
+
+
+SelectWidgetExportImportHandler = plone.autoform.widgets.WidgetExportImportHandler(ISelectWidget)

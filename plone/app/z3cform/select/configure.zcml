@@ -29,23 +29,30 @@
 <!-- widget templates -->
     <z3c:widgetTemplate
         mode="display"
-        widget="z3c.form.interfaces.ISelectWidget"
+        widget=".interfaces.ISelectWidget"
         layer="plone.app.z3cform.interfaces.IPloneFormLayer"
         template="select_display.pt"
         />
 
     <z3c:widgetTemplate
         mode="input"
-        widget="z3c.form.interfaces.ISelectWidget"
+        widget=".interfaces.ISelectWidget"
         layer="plone.app.z3cform.interfaces.IPloneFormLayer"
         template="select_input.pt"
         />
 
     <z3c:widgetTemplate
         mode="hidden"
-        widget="z3c.form.interfaces.ISelectWidget"
+        widget=".interfaces.ISelectWidget"
         layer="plone.app.z3cform.interfaces.IPloneFormLayer"
         template="select_hidden.pt"
+        />
+
+
+    <utility
+        provides="plone.autoform.interfaces.IWidgetExportImportHandler"
+        component=".select.SelectWidgetExportImportHandler"
+        name="z3c.form.browser.select.CollectionSelectFieldWidget"
         />
 
 </configure>
