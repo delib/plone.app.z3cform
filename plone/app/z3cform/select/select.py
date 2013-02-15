@@ -2,6 +2,7 @@ import zope.component
 import zope.interface
 import zope.schema.interfaces
 import zope.component.hooks
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 import z3c.form.interfaces
 import z3c.form.browser.select
@@ -9,10 +10,19 @@ import z3c.form.browser.select
 try:
     import plone.autoform.widgets
     have_autoform = True
-except:
+except ImportError:
     have_autoform = False
 
+try:
+    import plone.schemaeditor.widgets
+    have_schemaeditor = True
+except ImportError:
+    have_schemaeditor = False
+
 from interfaces import ISelectWidget
+
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('plone')
 
 
 class SelectWidget(z3c.form.browser.select.SelectWidget):
@@ -54,6 +64,39 @@ def CollectionSelectFieldWidget(field, request):
     return widget
 
 
+if have_schemaeditor:
+    select_styles = SimpleVocabulary(
+        [SimpleTerm(value=u'auto', title=_(u'Auto')),
+         SimpleTerm(value=u'select', title=_(u'Selection Box')),
+         SimpleTerm(value=u'individual', title=_(u'Checkboxes'))]
+        )
+
+    class ISelectWidgetParameters(zope.interface.Interface):
+
+        input_format = zope.schema.Choice(
+            title=_(u'Input Format'),
+            description=_(
+                "Determines whether choices are displayed in a single "
+                "control or several individual controls. "
+                "Choose 'auto' to use single controls for small "
+                "numbers of items and a select box for more."
+                ),
+            vocabulary=select_styles,
+            default=u'auto',
+        )
+
+        size = zope.schema.Int(
+            title=_(u'Size'),
+            description=_(u'Rows to display in selection boxes'),
+            default=5,
+        )
+
+    def get_select_widget_schema(schema_context, field):
+        return ISelectWidgetParameters
+
+    class SelectWidgetParameters(plone.schemaeditor.widgets.WidgetSettingsAdapter):
+        schema = ISelectWidgetParameters
+
+
 if have_autoform:
     SelectWidgetExportImportHandler = plone.autoform.widgets.WidgetExportImportHandler(ISelectWidget)
-

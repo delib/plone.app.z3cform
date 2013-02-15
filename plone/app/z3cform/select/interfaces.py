@@ -20,12 +20,11 @@ class ISelectWidget(z3c.form.interfaces.ISelectWidget):
     input_format = zope.schema.Choice(
         title=u'Input Format',
         values=(None, u'auto', u'select', u'individual'),
-        default=u'auto'
+        default=u'auto',
     )
 
     size = zope.schema.Int(
         title=u'Size',
-        description=u'Rows to display in selection boxes',
         default=5,
     )
 
