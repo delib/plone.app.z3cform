@@ -19,13 +19,14 @@ try:
 except ImportError:
     have_schemaeditor = False
 
-from interfaces import ISelectWidget
-
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('plone')
 
+from interfaces import ISelectWidget
+
 
 class SelectWidget(z3c.form.browser.select.SelectWidget):
+    """ Selection widget that implements our extra UI """
 
     zope.interface.implementsOnly(ISelectWidget)
 
@@ -65,10 +66,12 @@ def CollectionSelectFieldWidget(field, request):
 
 
 if have_schemaeditor:
+    # Tell plone.schemaeditor how to display our input format widget
+
     select_styles = SimpleVocabulary(
         [SimpleTerm(value=u'auto', title=_(u'Auto')),
-         SimpleTerm(value=u'select', title=_(u'Selection Box')),
-         SimpleTerm(value=u'individual', title=_(u'Checkboxes'))]
+         SimpleTerm(value=u'select', title=_(u'Selection box')),
+         SimpleTerm(value=u'individual', title=_(u'Individual controls'))]
         )
 
     class ISelectWidgetParameters(zope.interface.Interface):
@@ -99,4 +102,5 @@ if have_schemaeditor:
 
 
 if have_autoform:
+    # Arrange for serialization to/from supermodel
     SelectWidgetExportImportHandler = plone.autoform.widgets.WidgetExportImportHandler(ISelectWidget)

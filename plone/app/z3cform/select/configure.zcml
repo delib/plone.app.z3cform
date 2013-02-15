@@ -54,6 +54,12 @@
     <utility
         provides="plone.autoform.interfaces.IWidgetExportImportHandler"
         component=".select.SelectWidgetExportImportHandler"
+        name="z3c.form.browser.select.ChoiceWidgetDispatcher"
+        />
+
+    <utility
+        provides="plone.autoform.interfaces.IWidgetExportImportHandler"
+        component=".select.SelectWidgetExportImportHandler"
         name="z3c.form.browser.select.CollectionSelectFieldWidget"
         />
 </configure>
@@ -71,6 +77,19 @@
     factory=".select.SelectWidgetParameters"
     provides=".select.ISelectWidgetParameters"
     for="zope.schema.interfaces.ISet"
+    />
+
+  <adapter
+    factory=".select.get_select_widget_schema"
+    provides="plone.schemaeditor.interfaces.IFieldEditorExtender"
+    for="plone.schemaeditor.interfaces.ISchemaContext zope.schema.interfaces.IChoice"
+    name="widget"
+    />
+
+  <adapter
+    factory=".select.SelectWidgetParameters"
+    provides=".select.ISelectWidgetParameters"
+    for="zope.schema.interfaces.IChoice"
     />
 </configure>
 
