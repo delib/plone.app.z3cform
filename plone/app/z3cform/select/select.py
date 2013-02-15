@@ -1,3 +1,21 @@
+"""
+Creates a z3cform selection widget that will automatically
+switch between the HTML select widget and individual controls.
+
+Works for IChoice and ISet fields. Uses radio buttons for individual
+Choice controls and checkboxes for multiple choice.
+
+Implementation has three parts:
+
+1) Creation of the widget;
+
+2) Registration with plone.schemaeditor so that our extra options
+   show on field edit;
+
+3) Registration with plone.autoform so that widget options
+   may be serialized with supermodel.
+"""
+
 import zope.component
 import zope.interface
 import zope.schema.interfaces
@@ -24,6 +42,9 @@ _ = MessageFactory('plone')
 
 from interfaces import ISelectWidget
 
+
+##################
+# Create our widget and plug it into z3c.form
 
 class SelectWidget(z3c.form.browser.select.SelectWidget):
     """ Selection widget that implements our extra UI """
@@ -65,6 +86,9 @@ def CollectionSelectFieldWidget(field, request):
     return widget
 
 
+##################
+# Tell schemaeditor how to edit the input_format
+
 if have_schemaeditor:
     # Tell plone.schemaeditor how to display our input format widget
 
@@ -100,6 +124,9 @@ if have_schemaeditor:
     class SelectWidgetParameters(plone.schemaeditor.widgets.WidgetSettingsAdapter):
         schema = ISelectWidgetParameters
 
+
+##################
+# Tell autoform how to serialize the input_format widget option
 
 if have_autoform:
     # Arrange for serialization to/from supermodel
