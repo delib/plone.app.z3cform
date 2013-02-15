@@ -5,8 +5,7 @@
     i18n_domain="plone">
 
 
-<!-- Single Selection
--->
+<!-- Single Selection -->
     <class class="zope.schema._field.Choice">
         <implements interface=".interfaces.IChoiceField"/>
     </class>
@@ -16,8 +15,7 @@
         for=".interfaces.IChoiceField
              plone.app.z3cform.interfaces.IPloneFormLayer" />
 
-<!-- Multiple Selection
--->
+<!-- Multiple Selection -->
     <class class="zope.schema._field.Set">
         <implements interface=".interfaces.ISetField"/>
     </class>
@@ -38,8 +36,8 @@
     <z3c:widgetTemplate
         mode="input"
         widget=".interfaces.ISelectWidget"
-        layer="plone.app.z3cform.interfaces.IPloneFormLayer"
         template="select_input.pt"
+        layer="plone.app.z3cform.interfaces.IPloneFormLayer"
         />
 
     <z3c:widgetTemplate

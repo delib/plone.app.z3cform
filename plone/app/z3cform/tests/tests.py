@@ -58,7 +58,7 @@ def test_suite():
         package='plone.app.z3cform',
         optionflags=zope.testing.doctest.NORMALIZE_WHITESPACE | zope.testing.doctest.ELLIPSIS,
         )
-    seltest.layer = IntegrationLayer
+    seltest.layer = InlineValidationLayer
 
     return unittest.TestSuite([
         unittest.makeSuite(IntegrationTests),
